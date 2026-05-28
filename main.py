@@ -7,6 +7,10 @@ import os
 MY_LAT = os.environ.get("MY_LAT")
 MY_LONG = os.environ.get("MY_LONG")
 
+sender_email = os.environ.get("SENDER_EMAIL")
+sender_password = os.environ.get("SENDER_PASSWORD")
+receiver_email = os.environ.get("RECEIVER_EMAIL")
+
 def is_iss_above():
     response = requests.get(url="http://api.open-notify.org/iss-now.json")
     response.raise_for_status()
@@ -42,11 +46,6 @@ def is_dark():
         return False
 
 def send_email():
-    SENDER_EMAIL = os.environ.get("SENDER_EMAIL")
-    SENDER_PASSWORD = os.environ.get("SENDER_PASSWORD")
-    RECEIVER_EMAIL = os.environ.get("RECEIVER_EMAIL")
-    
-
     with smtplib.SMTP('smtp.gmail.com', port=587) as connection:
         connection.starttls()
         connection.login(user=sender_email, password=sender_password)
