@@ -42,9 +42,10 @@ def is_dark():
         return False
 
 def send_email():
-    sender_email = "4n4c0nd4d0nt@gmail.com"
-    sender_password = "myrmswmxudeeupaa"
-    receiver_email = "m0ntypyt0n@yahoo.com"
+    SENDER_EMAIL = os.environ.get("SENDER_EMAIL")
+    SENDER_PASSWORD = os.environ.get("SENDER_PASSWORD")
+    RECEIVER_EMAIL = os.environ.get("RECEIVER_EMAIL")
+    
 
     with smtplib.SMTP('smtp.gmail.com', port=587) as connection:
         connection.starttls()
