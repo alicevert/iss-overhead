@@ -2,9 +2,10 @@ import requests
 from datetime import datetime
 import smtplib
 import time
+import os
 
-MY_LAT = 45.473253
-MY_LONG = -73.587287
+MY_LAT = os.environ.get("MY_LAT")
+MY_LONG = os.environ.get("MY_LONG")
 
 def is_iss_above():
     response = requests.get(url="http://api.open-notify.org/iss-now.json")
@@ -18,7 +19,6 @@ def is_iss_above():
         return True
     else:
         return False
-
 
 def is_dark():
     parameters = {
@@ -54,12 +54,7 @@ def send_email():
             to_addrs=receiver_email,
             msg=f"Subject: ISS\n\nLook up")
 
-while True: # infinite loop so code runs in background
-    time.sleep(600)
+while True:
+    time.sleep(360)
     if is_iss_above() and is_dark():
         send_email()
-
-#If the ISS is close to my current position
-# and it is currently dark
-# Then send me an email to tell me to look up.
-# BONUS: run the code every 60 seconds.
